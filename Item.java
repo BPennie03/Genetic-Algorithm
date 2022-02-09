@@ -7,17 +7,17 @@ public class Item {
     // The weight for the item (in pounds)
 
     private final int value;
-    // The value of the item (rounded to nearest dollar)
+    // The value of the item (rounded to the nearest dollar)
 
     private boolean included;
     // Indicates whether the item is, or isn't, included
 
-    // Initializes Item's fields to values that are passed in; the included field is initialized to false
+    // Initializes Item's fields to the values that are passed in; the included field is initialized to false
     public Item(String name, double weight, int value) {
         this.name = name;
         this.weight = weight;
         this.value = value;
-        this.included = false;
+        this.included= false;
     }
 
     // Initializes this item's fields to be the same as the other item's
