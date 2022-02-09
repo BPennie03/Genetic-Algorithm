@@ -22,8 +22,6 @@ public class GeneticAlgorithm {
             //System.out.println(items); // print statement for testing
         }
 
-
-
         // returns the arrayList of Items
         return items;
     }
