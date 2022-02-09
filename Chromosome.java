@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome> {
     
     // Used for random number generation
-    private static Random rng;
+    private static Random rng = new Random();
 
     // This no-arg constructor can be empty
     public Chromosome() {
@@ -14,6 +15,14 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // each item's included field is set to true or false
     public Chromosome(ArrayList<Item> items) {
 
+        Collections.shuffle(items);
+
+        for (int i=0; i<7; i++) {
+            this.add(items.get(i));
+
+            items.get(i).setIncluded(rng.nextBoolean());
+            System.out.println(this);
+        }
     }
 
     // Creates and returns a new child chromosome by performing the crossover operation on this chromosome
@@ -56,13 +65,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // is less than the other one's, and 0 if their fitness is the same
     public int compareTo(Chromosome other) {
 
-        if (this.getFitness() > other.getFitness()) {
-            return -1;
-        } else if (this.getFitness() < other.getFitness()) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return Integer.compare(other.getFitness(), this.getFitness());
 
     }
 
@@ -70,7 +73,16 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // included value is true, followed by the fitness of this chromosome
     public String toString() {
 
-        return null;
+        String returnString = "";
+        for (Item s: this) {
+            if(!s.isIncluded()) {
+                returnString += "F";
+            } else {
+                returnString += "T";
+            }
+        }
+
+        return returnString.toString();
     }
 
 

@@ -17,7 +17,7 @@ public class Item {
         this.name = name;
         this.weight = weight;
         this.value = value;
-        this.included= false;
+        this.included = false;
     }
 
     // Initializes this item's fields to be the same as the other item's
@@ -42,7 +42,7 @@ public class Item {
     
     // Setter for the item's included field (no need for setters for other fields)
     public void setIncluded(boolean included) {
-
+        this.included = included;
     }
 
     // Over-written toString method to display the item in format:

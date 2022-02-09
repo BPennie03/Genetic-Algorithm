@@ -19,8 +19,9 @@ public class GeneticAlgorithm {
             items.add(new Item(splitString[0], Double.parseDouble(splitString[1]), Integer.parseInt(splitString[2])));
             // adds the items into the arrayList
 
-            //System.out.println(items); // print statement for testing
+
         }
+        System.out.println(items); // print statement for testing
 
         // returns the arrayList of Items
         return items;
@@ -30,10 +31,13 @@ public class GeneticAlgorithm {
     // their included field randomly set to true
     public static ArrayList<Chromosome> initializePopulation(ArrayList<Item> items, int populationSize) {
 
-        ArrayList<Chromosome> chromosome = new ArrayList<>();
+        ArrayList<Chromosome> initialPopulation = new ArrayList<>();
+        for (int i=0; i<populationSize; i++) {
+            initialPopulation.add(new Chromosome(items));
+            System.out.println("This is population #" + (i+1));
+        }
 
-
-        return chromosome;
+        return initialPopulation;
     }
 
     // Reads the data about the items in from a file called items.txt and performs the steps described in the
@@ -43,8 +47,13 @@ public class GeneticAlgorithm {
         // calls the readData on the more_items.txt file
         ArrayList<Item> items = readData("more_items.txt");
 
+        int populationSize = 100;
+        ArrayList<Chromosome> shit = initializePopulation(items, populationSize);
+
         for (int i=0; i<20; i++) {
 
+
+            //initializePopulation(items, populationSize);
             // *** INSERT STEPS 2-6 ***
 
         } // loop to iterate over steps 2-6 in the rubric 20 times
