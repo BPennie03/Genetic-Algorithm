@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class GeneticAlgorithm {
@@ -48,13 +50,33 @@ public class GeneticAlgorithm {
         ArrayList<Item> items = readData("more_items.txt");
 
         int populationSize = 100;
-        ArrayList<Chromosome> shit = initializePopulation(items, populationSize);
+        ArrayList<Chromosome> currentPop = initializePopulation(items, populationSize);
 
         for (int i=0; i<20; i++) {
 
+            ArrayList<Chromosome> nextGen = new ArrayList<>(currentPop);
+
+                // randomly pair off parents and do .crossover method to create a child and add the child to nextGen
+
+
+                // randomly choose 10% of population IN NEXT GEN to expose to mutation
+
+
+            Collections.sort(nextGen);
+            currentPop.clear();
+
+
+            // Add top (populationSize) amount of people from next gen back to currentGen
+            for (int j=0; j<populationSize; j++) {
+                currentPop.add(nextGen.get(j));
+            }
 
 
         } // loop to iterate over steps 2-6 in the rubric 20 times
+
+        Collections.sort(currentPop);
+        System.out.println(currentPop.get(1));
+
     }
 
 }

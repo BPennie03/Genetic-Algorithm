@@ -31,8 +31,19 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     public Chromosome crossover(Chromosome other) {
 
         Chromosome child = new Chromosome();
+        int randNum = rng.nextInt(11);
 
-        return other;
+        for (Item s: this) {
+            if (randNum > 0 && randNum <= 5) {
+                //child.get().setIncluded();
+            } else {
+
+            }
+
+
+        }
+
+        return child;
     }
 
     // Performs the mutation operation on this chromosome (for each item in this chromosome, use a random number
