@@ -30,13 +30,25 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // be copied and added to the child)
     public Chromosome crossover(Chromosome other) {
 
+        Chromosome child = new Chromosome();
+
         return other;
     }
 
     // Performs the mutation operation on this chromosome (for each item in this chromosome, use a random number
     // to decide whether to flip it's included field from true to false or vice versa)
     public void mutate() {
+        for (Item s: this) {
+            int randNum = rng.nextInt(10);
 
+            if (randNum == 1) {
+                if (!s.isIncluded()) {
+                    s.setIncluded(true);
+                } else {
+                    s.setIncluded(false);
+                }
+            }
+        }
     }
 
     // Returns the fitness of this chromosome. If the sum of all the included items' weights are greater than 10,
@@ -47,8 +59,10 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         int weight = 0;
 
         for (Item s: this) {
-            value += s.getValue();
-            weight += s.getWeight();
+            if (s.isIncluded()) {
+                value += s.getValue();
+                weight += s.getWeight();
+            }
         }
 
         // if the weight of all the items is over 10, 0 is returned

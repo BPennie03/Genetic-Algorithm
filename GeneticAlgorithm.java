@@ -53,8 +53,6 @@ public class GeneticAlgorithm {
         for (int i=0; i<20; i++) {
 
 
-            //initializePopulation(items, populationSize);
-            // *** INSERT STEPS 2-6 ***
 
         } // loop to iterate over steps 2-6 in the rubric 20 times
     }
