@@ -17,11 +17,11 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
 
         Collections.shuffle(items);
 
-        for (int i=0; i<7; i++) {
-            this.add(items.get(i));
+        for (Item item : items) {
+            this.add(item);
 
-            items.get(i).setIncluded(rng.nextBoolean());
-            //System.out.println(this); // print statement for testing
+            item.setIncluded(rng.nextBoolean());
+            // System.out.println(this); // print statement for testing
         }
     }
 
@@ -33,8 +33,13 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         int randNum = rng.nextInt(11);
         Chromosome child = new Chromosome();
 
-
-
+        for (int i=0; i<this.size(); i++) {
+            if (randNum > 0 && randNum <= 5) {
+                child.add(new Item(this.get(i)));
+            } else {
+                child.add(new Item(other.get(i)));
+            }
+        }
 
         return child;
     }
@@ -45,12 +50,8 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         for (Item s: this) {
             int randNum = rng.nextInt(10);
 
-            if (randNum == 1) {
-                if (!s.isIncluded()) {
-                    s.setIncluded(true);
-                } else {
-                    s.setIncluded(false);
-                }
+            if (randNum == 0) {
+                s.setIncluded(!s.isIncluded());
             }
         }
     }
@@ -99,8 +100,9 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
                 returnString += "T";
             }
         }
+        //returnString += " " + this.getFitness(); // for testing
+        return returnString;
 
-        return returnString.toString();
     }
 
 

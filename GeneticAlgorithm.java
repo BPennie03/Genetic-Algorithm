@@ -34,35 +34,37 @@ public class GeneticAlgorithm {
         ArrayList<Chromosome> initialPopulation = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
             initialPopulation.add(new Chromosome(items));
-            //System.out.println("This is population #" + (i + 1)); // print statement to display population numbers for testing
+            // System.out.println("This is population #" + (i + 1)); // print statement to display population numbers for testing
         }
 
+        //System.out.println(initialPopulation); // for testing
         return initialPopulation;
     }
 
     // Reads the data about the items in from a file called items.txt and performs the steps described in the
     // "Running the Genetic Algorithm" section on .pdf
-    public static <Chromsome> void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
 
         // calls the readData on the more_items.txt file
         ArrayList<Item> items = readData("more_items.txt");
 
-        int populationSize = 200000;
+        int populationSize = 100;
         ArrayList<Chromosome> currentPop = initializePopulation(items, populationSize);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5000; i++) {
 
             ArrayList<Chromosome> nextGen = new ArrayList<>(currentPop);
 
             // randomly pair off parents and do .crossover method to create a child and add the child to nextGen
             Collections.shuffle(currentPop);
-            Chromosome randomParent1;
-            Chromosome randomParent2;
 
-            for (int j=0; j<populationSize; j++) {
 
-                randomParent1 = currentPop.get(j*2);
-                randomParent2 = currentPop.get(j+1);
+            for (int j=1; j<populationSize/2; j++) {
+                Chromosome randomParent1;
+                Chromosome randomParent2;
+
+                randomParent1 = currentPop.get((j*2)-1);
+                randomParent2 = currentPop.get((j*2));
 
                 nextGen.add(randomParent1.crossover(randomParent2));
             }
@@ -85,7 +87,7 @@ public class GeneticAlgorithm {
                 currentPop.add(nextGen.get(j));
             }
 
-
+            //System.out.println(currentPop);
         } // loop to iterate over steps 2-6 in the rubric 20 times
 
         Collections.sort(currentPop);
