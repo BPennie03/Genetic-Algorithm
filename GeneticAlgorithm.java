@@ -1,12 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class GeneticAlgorithm {
-    
+
     // Reads in data file with the format (on rubric) and creates and returns an ArrayList of Item objects
     public static ArrayList<Item> readData(String filename) throws FileNotFoundException {
 
@@ -21,9 +20,8 @@ public class GeneticAlgorithm {
             items.add(new Item(splitString[0], Double.parseDouble(splitString[1]), Integer.parseInt(splitString[2])));
             // adds the items into the arrayList
 
-
         }
-        System.out.println(items); // print statement for testing
+        //System.out.println(items); // print statement for testing
 
         // returns the arrayList of Items
         return items;
@@ -34,9 +32,9 @@ public class GeneticAlgorithm {
     public static ArrayList<Chromosome> initializePopulation(ArrayList<Item> items, int populationSize) {
 
         ArrayList<Chromosome> initialPopulation = new ArrayList<>();
-        for (int i=0; i<populationSize; i++) {
+        for (int i = 0; i < populationSize; i++) {
             initialPopulation.add(new Chromosome(items));
-            System.out.println("This is population #" + (i+1));
+            //System.out.println("This is population #" + (i + 1)); // print statement to display population numbers for testing
         }
 
         return initialPopulation;
@@ -44,30 +42,46 @@ public class GeneticAlgorithm {
 
     // Reads the data about the items in from a file called items.txt and performs the steps described in the
     // "Running the Genetic Algorithm" section on .pdf
-    public static void main(String[] args) throws FileNotFoundException {
+    public static <Chromsome> void main(String[] args) throws FileNotFoundException {
 
         // calls the readData on the more_items.txt file
         ArrayList<Item> items = readData("more_items.txt");
 
-        int populationSize = 100;
+        int populationSize = 200000;
         ArrayList<Chromosome> currentPop = initializePopulation(items, populationSize);
 
-        for (int i=0; i<20; i++) {
+        for (int i = 0; i < 20; i++) {
 
             ArrayList<Chromosome> nextGen = new ArrayList<>(currentPop);
 
-                // randomly pair off parents and do .crossover method to create a child and add the child to nextGen
+            // randomly pair off parents and do .crossover method to create a child and add the child to nextGen
+            Collections.shuffle(currentPop);
+            Chromosome randomParent1;
+            Chromosome randomParent2;
 
+            for (int j=0; j<populationSize; j++) {
 
-                // randomly choose 10% of population IN NEXT GEN to expose to mutation
+                randomParent1 = currentPop.get(j*2);
+                randomParent2 = currentPop.get(j+1);
 
+                nextGen.add(randomParent1.crossover(randomParent2));
+            }
 
+            // randomly choose 10% of population IN NEXT GEN to expose to mutation
+            int tenPercent = (int) (nextGen.size() * .10);
+
+            Collections.shuffle(nextGen);
+            for (int j = 0; j < tenPercent; j++) {
+                nextGen.get(j).mutate();
+            }
+
+            // Sorts the nextGen according to fitness and clears the current population
             Collections.sort(nextGen);
             currentPop.clear();
 
 
             // Add top (populationSize) amount of people from next gen back to currentGen
-            for (int j=0; j<populationSize; j++) {
+            for (int j = 0; j < populationSize; j++) {
                 currentPop.add(nextGen.get(j));
             }
 
@@ -75,7 +89,7 @@ public class GeneticAlgorithm {
         } // loop to iterate over steps 2-6 in the rubric 20 times
 
         Collections.sort(currentPop);
-        System.out.println(currentPop.get(1));
+        System.out.println(currentPop.get(0).getFitness());
 
     }
 

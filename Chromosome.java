@@ -21,7 +21,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
             this.add(items.get(i));
 
             items.get(i).setIncluded(rng.nextBoolean());
-            System.out.println(this);
+            //System.out.println(this); // print statement for testing
         }
     }
 
@@ -30,18 +30,11 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // be copied and added to the child)
     public Chromosome crossover(Chromosome other) {
 
-        Chromosome child = new Chromosome();
         int randNum = rng.nextInt(11);
-
-        for (Item s: this) {
-            if (randNum > 0 && randNum <= 5) {
-                //child.get().setIncluded();
-            } else {
-
-            }
+        Chromosome child = new Chromosome();
 
 
-        }
+
 
         return child;
     }
@@ -67,7 +60,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     public int getFitness() {
 
         int value = 0;
-        int weight = 0;
+        double weight = 0;
 
         for (Item s: this) {
             if (s.isIncluded()) {
