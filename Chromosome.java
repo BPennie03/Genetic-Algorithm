@@ -17,6 +17,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
 
         Collections.shuffle(items);
 
+        // For each item in items, add item to "this" and randomly set its included value to T or F
         for (Item item : items) {
             this.add(item);
 
@@ -30,7 +31,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // be copied and added to the child)
     public Chromosome crossover(Chromosome other) {
 
-        int randNum = rng.nextInt(11);
+        int randNum = rng.nextInt(10); // random int between 0-10 (exclusive)
         Chromosome child = new Chromosome();
 
         // If the random num is between 0-5, it picks from parent 1, if its between 6-11 (exclusive)
@@ -43,6 +44,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
             }
         }
 
+        // returns the child created from crossover
         return child;
     }
 

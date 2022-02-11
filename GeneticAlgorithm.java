@@ -81,7 +81,8 @@ public class GeneticAlgorithm {
             currentPop.clear();
 
 
-            // Add top (populationSize) amount of people from next gen back to currentGen
+            // Add top (populationSize) amount of people from next gen back to currentGen to keep
+            // population size consistent
             for (int j = 0; j < populationSize; j++) {
                 currentPop.add(nextGen.get(j));
             }
