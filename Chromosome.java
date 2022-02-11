@@ -33,6 +33,8 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         int randNum = rng.nextInt(11);
         Chromosome child = new Chromosome();
 
+        // If the random num is between 0-5, it picks from parent 1, if its between 6-11 (exclusive)
+        // it picks from parent2
         for (int i=0; i<this.size(); i++) {
             if (randNum > 0 && randNum <= 5) {
                 child.add(new Item(this.get(i)));
@@ -48,8 +50,9 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // to decide whether to flip it's included field from true to false or vice versa)
     public void mutate() {
         for (Item s: this) {
-            int randNum = rng.nextInt(10);
+            int randNum = rng.nextInt(10); // creates a random integer 0-10 (exclusive)
 
+            // If the random number is 0, it sets its included value to whatever its current included value isn't
             if (randNum == 0) {
                 s.setIncluded(!s.isIncluded());
             }
@@ -63,6 +66,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
         int value = 0;
         double weight = 0;
 
+        // for every item in items, if its included - increase its total value and weight
         for (Item s: this) {
             if (s.isIncluded()) {
                 value += s.getValue();
@@ -84,6 +88,7 @@ public class Chromosome extends ArrayList<Item> implements Comparable<Chromosome
     // is less than the other one's, and 0 if their fitness is the same
     public int compareTo(Chromosome other) {
 
+        // Compares others fitness with this fitness
         return Integer.compare(other.getFitness(), this.getFitness());
 
     }

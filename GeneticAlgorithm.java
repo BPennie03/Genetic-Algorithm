@@ -48,17 +48,16 @@ public class GeneticAlgorithm {
         // calls the readData on the more_items.txt file
         ArrayList<Item> items = readData("more_items.txt");
 
-        int populationSize = 100;
+        int populationSize = 100; // initializes the population size
         ArrayList<Chromosome> currentPop = initializePopulation(items, populationSize);
 
-        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 5000; i++) { // loops according to amount of epochs
 
+            // Creates a new arrayList of chromosome for next generation and fills it in with current population
             ArrayList<Chromosome> nextGen = new ArrayList<>(currentPop);
 
             // randomly pair off parents and do .crossover method to create a child and add the child to nextGen
             Collections.shuffle(currentPop);
-
-
             for (int j=1; j<populationSize/2; j++) {
                 Chromosome randomParent1;
                 Chromosome randomParent2;
@@ -72,7 +71,7 @@ public class GeneticAlgorithm {
             // randomly choose 10% of population IN NEXT GEN to expose to mutation
             int tenPercent = (int) (nextGen.size() * .10);
 
-            Collections.shuffle(nextGen);
+            Collections.shuffle(nextGen); // shuffles list before picking 10% for random factor
             for (int j = 0; j < tenPercent; j++) {
                 nextGen.get(j).mutate();
             }
@@ -87,11 +86,13 @@ public class GeneticAlgorithm {
                 currentPop.add(nextGen.get(j));
             }
 
-            //System.out.println(currentPop);
+            //System.out.println(currentPop); // print statement for testing
         } // loop to iterate over steps 2-6 in the rubric 20 times
 
+        // Sorts the current population by fitness and displays the fittest individual to the console
         Collections.sort(currentPop);
-        System.out.println(currentPop.get(0).getFitness());
+        System.out.print("The fittest individual is was " + currentPop.get(0) + " ");
+        System.out.println("with a fitness of " + currentPop.get(0).getFitness());
 
     }
 
